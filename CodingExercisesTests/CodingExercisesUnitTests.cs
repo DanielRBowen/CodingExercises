@@ -7,6 +7,45 @@ namespace CodingExercisesTests
     public class CodingExercisesUnitTests
     {
         [TestMethod]
+        public void TestPrototype()
+        {
+        }
+
+        [TestMethod]
+        public void TestValidTicTacToe()
+        {
+            //The first player always plays "X".
+            string[] board1 = { "O  ", "   ", "   " };
+            Assert.AreEqual(false, ValidTicTacToe(board1));
+
+            //Players take turns making moves.
+            string[] board2 = { "XOX", " X ", "   " };
+            Assert.AreEqual(false, ValidTicTacToe(board2));
+
+            string[] board3 = { "XXX", "   ", "OOO" };
+            Assert.AreEqual(false, ValidTicTacToe(board3));
+
+            string[] board4 = { "XOX", "O O", "XOX" };
+            Assert.AreEqual(true, ValidTicTacToe(board4));
+
+            // X won and went first, yet there is an extra O
+            string[] board5 = { "XXX", "XOO", "OO " };
+            Assert.AreEqual(false, ValidTicTacToe(board5));
+        }
+
+        [TestMethod]
+        public void TestPassingCars()
+        {
+            Assert.AreEqual(5, PassingCars(new int[] { 0, 1, 0, 1, 1 }));
+        }
+
+        [TestMethod]
+        public void TestCountDiv()
+        {
+            Assert.AreEqual(3, CountDiv(6, 11, 2));
+        }
+
+        [TestMethod]
         public void TestMaxCounters()
         {
             int[] expected1 = { 3, 2, 2, 4, 2 };

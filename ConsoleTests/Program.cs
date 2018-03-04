@@ -7,13 +7,17 @@ namespace ConsoleTests
     {
         static void Main(string[] args)
         {
+            Console.ReadLine();
+        }
+
+        public static void Old()
+        {
             var buzzFizzWords = OneToHundredBuzzFizz();
 
             foreach (var word in buzzFizzWords)
             {
                 Console.WriteLine(word);
             }
-            Console.ReadLine();
         }
     }
 }

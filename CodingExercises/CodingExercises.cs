@@ -8,6 +8,130 @@ namespace CodingExercises
 {
     public class CodingExercises
     {
+        // Lesson 5 Prefix Sums, PassingCars
+        // Count the number of passing cars on the road. 
+
+        /// <summary>
+        /// A Tic-Tac-Toe board is given as a string array board. 
+        /// Return True if and only if it is possible to reach this board 
+        /// position during the course of a valid tic-tac-toe game.
+        /// 
+        /// The board is a 3 x 3 array, and consists of characters " ", "X", and "O".  The " " character represents an empty square.
+        /// 
+        /// Rules:
+        /// Players take turns placing characters into empty squares (" ").
+        /// The first player always places "X" characters, while the second player always places "O" characters.
+        /// "X" and "O" characters are always placed into empty squares, never filled ones.
+        /// The game ends when there are 3 of the same (non-empty) character filling any row, column, or diagonal.
+        /// The game also ends if all squares are non-empty.
+        /// No more moves can be played if the game is over.
+        /// 
+        /// Taken from leet code exercise 794. Valid Tic-Tac-Toe. On March 3rd, 2018 contest 74.
+        /// https://leetcode.com/contest/weekly-contest-74/problems/valid-tic-tac-toe-state/
+        /// </summary>
+        /// <param name="board"></param>
+        /// <returns></returns>
+        public static bool ValidTicTacToe(string[] board)
+        {
+            var boardStringBuilder = new StringBuilder();
+
+            foreach (var row in board)
+            {
+                boardStringBuilder.Append(row);
+            }
+
+            var boardString = boardStringBuilder.ToString();
+            var oTokenCount = boardString.Count(position => position == 'O');
+            var xTokenCount = boardString.Count(position => position == 'X');
+            var totalTokens = oTokenCount + xTokenCount;
+            var row1 = board[0];
+            var row2 = board[1];
+            var row3 = board[2];
+            var allORow = "OOO";
+            var allXRow = "XXX";
+
+            if (row1 == allXRow && row3 == allORow)
+            {
+                return false;
+            }
+
+            // If the first turn isn't X
+            if (totalTokens == 1 && boardString.Any(position => position == 'O'))
+            {
+                return false;
+            }
+
+            // The player moves more turns than possible
+            if (oTokenCount > xTokenCount + 1 || xTokenCount > oTokenCount + 1)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Count the number of passing cars on the road.
+        /// 
+        /// The consecutive elements of array A represent consecutive cars on a road.
+        /// Array A contains only 0s and/or 1s: 0 represents a car traveling east, 1 represents a car traveling west.
+        /// The goal is to count passing cars
+        /// 
+        /// Example: A = { 0, 1, 0, 1, 1 }
+        /// We have five pairs of passing cars: (0, 1), (0, 3), (0, 4), (2, 3), (2, 4).
+        /// 
+        /// Lesson 5 Prefix Sums, PassingCars: https://app.codility.com/demo/results/trainingQFH3G3-EWV/
+        /// </summary>
+        /// <param name="A"></param>
+        /// <returns></returns>
+        public static int PassingCars(int[] cars)
+        {
+            var passingCarsCount = 0;
+            var carsLength = cars.Length;
+
+            for (int index = 0; index < carsLength; index++)
+            {
+                if (cars[index] == 0)
+                {
+                    passingCarsCount += cars
+                        .TakeLast(carsLength - index)
+                        .Count(car0 => car0 == 1);
+                }
+            }
+
+            return passingCarsCount;
+        }
+
+        /// <summary>
+        /// Compute number of integers divisible by k in range[a..b].
+        /// { i : A ≤ i ≤ B, i mod K = 0 }
+        /// 
+        /// For A = 6, B = 11 and K = 2, your function should return 3, because there are three
+        /// numbers divisible by 2 within the range [6..11], namely 6, 8 and 10.
+        /// 
+        /// Lesson 5 Prefix Sums, CountDiv: https://app.codility.com/demo/results/trainingNR4JZN-MA5/
+        /// </summary>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <param name="K">Given three integers A, B and K, returns the number of integers within the range [A..B] that are divisible by K</param>
+        /// <returns></returns>
+        public static int CountDiv(int A, int B, int K)
+        {
+            var divisibleByKCounts = 0;
+
+            while (A <= B)
+            {
+                if (A % K == 0)
+                {
+                    divisibleByKCounts++;
+                }
+
+                A++;
+            }
+
+            return divisibleByKCounts;
+        }
+
         /// <summary>
         /// Calculate the values of counters after applying all alternating operations: increase counter by 1; set value of all counters to current maximum. 
         /// 
@@ -72,7 +196,7 @@ namespace CodingExercises
 
         public static int[] IncreaseCounter(int[] counters, int counterIndex)
         {
-            counters[counterIndex -1] += 1;
+            counters[counterIndex - 1] += 1;
             return counters;
         }
 
