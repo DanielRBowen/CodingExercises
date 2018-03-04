@@ -7,6 +7,14 @@ namespace CodingExercisesTests
     public class CodingExercisesUnitTests
     {
         [TestMethod]
+        public void TestMaxCounters()
+        {
+            int[] expected1 = { 3, 2, 2, 4, 2 };
+            int[] actual1 = MaxCounters(5, new int[] { 3, 4, 4, 6, 1, 4, 4 });
+            CollectionAssert.AreEqual(expected1, actual1);
+        }
+
+        [TestMethod]
         public void TestMinDiffInBST()
         {
             //root = [4,2,6,1,3,null,null] returns 1

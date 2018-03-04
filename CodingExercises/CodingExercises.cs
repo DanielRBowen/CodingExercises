@@ -9,6 +9,74 @@ namespace CodingExercises
     public class CodingExercises
     {
         /// <summary>
+        /// Calculate the values of counters after applying all alternating operations: increase counter by 1; set value of all counters to current maximum. 
+        /// 
+        /// You are given N counters, initially set to 0, and you have two possible operations on them:
+        /// increase(X) − counter X is increased by 1,
+        /// max counter − all counters are set to the maximum value of any counter.
+        /// 
+        /// A non-empty zero-indexed array A of M integers is given. This array represents consecutive operations:
+        /// if A[K] = X, such that 1 ≤ X ≤ N, then operation K is increase(X),
+        /// if A[K] = N + 1 then operation K is max counter.
+        /// 
+        /// Example: N = 5, A =  { 3, 4, 4, 6, 1, 4, 4 }
+        /// The values of the counters after each consecutive operation will be:
+        /// (0, 0, 1, 0, 0)
+        /// (0, 0, 1, 1, 0)
+        /// (0, 0, 1, 2, 0)
+        /// (2, 2, 2, 2, 2)
+        /// (3, 2, 2, 2, 2)
+        /// (3, 2, 2, 3, 2)
+        /// (3, 2, 2, 4, 2)
+        /// 
+        /// Lesson 4 Counting Elements, MaxCounters: https://app.codility.com/demo/results/training9UXW39-KJ7/
+        /// </summary>
+        /// <param name="N"></param>
+        /// <param name="A"></param>
+        /// <returns></returns>
+        public static int[] MaxCounters(int N, int[] A)
+        {
+            int[] counters = new int[N];
+
+            for (int index = 0; index < N; index++)
+            {
+                counters[index] = 0;
+            }
+
+            foreach (var counterIndex in A)
+            {
+                if (counterIndex == N + 1)
+                {
+                    counters = SetAllMaxCounter(counters);
+                }
+                else
+                {
+                    counters = IncreaseCounter(counters, counterIndex);
+                }
+            }
+
+            return counters;
+        }
+
+        public static int[] SetAllMaxCounter(int[] counters)
+        {
+            var currentMaxCounter = counters.Max();
+
+            for (int index = 0; index < counters.Length; index++)
+            {
+                counters[index] = currentMaxCounter;
+            }
+
+            return counters;
+        }
+
+        public static int[] IncreaseCounter(int[] counters, int counterIndex)
+        {
+            counters[counterIndex -1] += 1;
+            return counters;
+        }
+
+        /// <summary>
         /// Given a treenode root, Returns the minimum difference in a Binary Search Tree
         /// Note that root is a TreeNode object, not an array.
         /// The given tree [4,2,6,1,3,null,null] is represented by the following diagram:
@@ -120,7 +188,7 @@ namespace CodingExercises
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
-        public void ModifyDictionary(Dictionary<string, int> x, Dictionary<string, int> y)
+        public static void ModifyDictionary(Dictionary<string, int> x, Dictionary<string, int> y)
         {
             foreach (var pairX in x)
             {
@@ -153,30 +221,31 @@ namespace CodingExercises
         /// If the number divides by 3 and 5 it will be "BuzzFizz"
         /// 
         /// From the Clearview written test taken and remembered on 2/1/2018
+        /// I modified this common question in response to this video: https://www.youtube.com/watch?v=QPZ0pIK_wsc&index=19&t=281s&list=PLym3GYqheKWCfxX-XYWjaxc7hs2Dc64S5
         /// </summary>
         /// <returns>List one to hundred with weird words put in numbers divisible by 3 or/and 5</returns>
-        public List<string> OneToHundredWeird()
+        public static List<string> OneToHundredBuzzFizz()
         {
             List<string> wordList = new List<string>();
 
             for (int index = 1; index < 101; index++)
             {
-                if ((index % 3) == 0 && (index % 5) == 0)
+                var output = new StringBuilder();
+
+                if ((index % 3) == 0)
                 {
-                    wordList.Add("BuzzFizz");
+                    output.Append("Buzz");
                 }
-                else if ((index % 3) == 0)
+                if ((index % 5) == 0)
                 {
-                    wordList.Add("Buzz");
+                    output.Append("Fizz");
                 }
-                else if ((index % 5) == 0)
+                if (output.ToString() == string.Empty)
                 {
-                    wordList.Add("Fizz");
+                    output.Append($"{index}");
                 }
-                else
-                {
-                    wordList.Add($"{index}");
-                }
+
+                wordList.Add(output.ToString());
             }
 
             return wordList;
@@ -716,6 +785,7 @@ namespace CodingExercises
         /// Given A = [1, 2, 3], the function should return 4.
         /// 
         /// Demo, Largest Sequential Integer: https://app.codility.com/demo/results/demoN4EV73-VCB/
+        /// Also, Lesson 4, Missing Integer: https://app.codility.com/demo/results/trainingN638Q5-2Q4/
         /// </summary>
         /// <param name="A">Array A of N integers</param>
         /// <returns>The smallest positive integer (greater than 0) that does not occur in A.</returns>
