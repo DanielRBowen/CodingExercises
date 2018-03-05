@@ -72,6 +72,8 @@ namespace CodingExercisesTests
             Assert.AreEqual(1, MinDiffInBST(node0));
 
             // Fails [27,null,34,null,58,50,null,44,null,null,null]
+
+            // [90,69,null,49,89,null,52,null,null,null,null], Output: 3, Expected: 1
         }
 
         [TestMethod]

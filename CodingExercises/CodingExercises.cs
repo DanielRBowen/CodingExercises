@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
+// https://leetcode.com/danielbowen/
 namespace CodingExercises
 {
     public class CodingExercises
@@ -345,34 +346,35 @@ namespace CodingExercises
         /// If the number divides by 3 and 5 it will be "BuzzFizz"
         /// 
         /// From the Clearview written test taken and remembered on 2/1/2018
+        /// Also on FFS Connect Interview on 3/5/2018
         /// I modified this common question in response to this video: https://www.youtube.com/watch?v=QPZ0pIK_wsc&index=19&t=281s&list=PLym3GYqheKWCfxX-XYWjaxc7hs2Dc64S5
         /// </summary>
         /// <returns>List one to hundred with weird words put in numbers divisible by 3 or/and 5</returns>
-        public static List<string> OneToHundredBuzzFizz()
+        public static IEnumerable<string> BuzzFizz(int maxValue)
         {
-            List<string> wordList = new List<string>();
+            var output = new StringBuilder();
 
-            for (int index = 1; index < 101; index++)
+            for (int index = 1; index < maxValue + 1; index++)
             {
-                var output = new StringBuilder();
+                output.Clear();
 
-                if ((index % 3) == 0)
+                if (index % 3 == 0)
                 {
                     output.Append("Buzz");
                 }
-                if ((index % 5) == 0)
+
+                if (index % 5 == 0)
                 {
                     output.Append("Fizz");
                 }
+
                 if (output.ToString() == string.Empty)
                 {
                     output.Append($"{index}");
                 }
 
-                wordList.Add(output.ToString());
+                yield return output.ToString();
             }
-
-            return wordList;
         }
 
         /// <summary>
