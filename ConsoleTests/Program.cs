@@ -5,24 +5,22 @@ namespace ConsoleTests
 {
     class Program
     {
+        delegate string BuzzFizz0(int index);
+
         static void Main(string[] args)
         {
-            //BuzzFizz(100).ToList().ForEach(Console.WriteLine);
-
-            string buzzFizz1(int index)
-            {
-                var output = string.Empty;
-                if (index % 3 == 0) output += "Buzz";
-                if (index % 5 == 0) output += "Fizz";
-                if (output == string.Empty) output = $"{index}";
-                return output;
-            }
-
             var oneToHundred = Enumerable.Range(1, 100).ToList();
 
             foreach (var number in oneToHundred)
             {
-                Console.WriteLine(buzzFizz1(number));
+                Console.WriteLine(((BuzzFizz0)((index) =>
+                {
+                    var output = string.Empty;
+                    if (index % 3 == 0) output += "Buzz";
+                    if (index % 5 == 0) output += "Fizz";
+                    if (output == string.Empty) output = $"{index}";
+                    return output;
+                }))(number));
             }
 
             Console.ReadLine();
@@ -30,9 +28,8 @@ namespace ConsoleTests
 
         public static void Old()
         {
+            CodingExercises.CodingExercises.BuzzFizz(100).ToList().ForEach(Console.WriteLine);
             var oneToHundred = Enumerable.Range(1, 100).ToList();
-                    
-
         }
     }
 }
