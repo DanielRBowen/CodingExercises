@@ -4,7 +4,7 @@ using static CodingExercises.CodingExercises;
 namespace CodingExercisesTests
 {
     [TestClass]
-    public class CodingExercisesUnitTests
+    public class CodingExercisesMSTests
     {
         [TestMethod]
         public void TestPrototype()

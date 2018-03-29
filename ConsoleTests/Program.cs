@@ -14,8 +14,8 @@ namespace ConsoleTests
         {
             var stopwatch = Stopwatch.StartNew();
 
-            var oneToHundred = Enumerable.Range(1, 100).ToList();
             //CodingExercises.CodingExercises.BuzzFizz(100).ToList().ForEach(Console.WriteLine);
+            var oneToHundred = Enumerable.Range(1, 100).ToList();
 
             foreach (var number in oneToHundred)
             {
