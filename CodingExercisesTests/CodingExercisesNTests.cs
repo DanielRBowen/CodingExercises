@@ -19,6 +19,18 @@ namespace CodingExercisesTests
         }
 
         [Test]
+        public void TestGenomicRangeQuery()
+        {
+            int[] testP = { 2, 5, 0 };
+            int[] testQ = { 4, 5, 6 };
+            var testS = "CAGCCTA";
+
+            int[] expected1 = { 2, 4, 1 };
+            int[] actual1 = GenomicRangeQuery(testS, testP, testQ);
+            CollectionAssert.AreEqual(expected1, actual1);
+        }
+
+        [Test]
         public void TestValidTicTacToe()
         {
             //The first player always plays "X".

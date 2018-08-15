@@ -9,8 +9,67 @@ namespace CodingExercises
 {
     public class CodingExercises
     {
-        // Lesson 5 Prefix Sums, PassingCars
-        // Count the number of passing cars on the road. 
+        /// <summary>
+        /// GenomicRangeQuery
+        /// Find the Minimal nucleotide from a range of sequence DNA.
+        /// 
+        /// A DNA sequence can be represented as a string consisting of the letters A, C, G and T, 
+        /// which correspond to the types of successive nucleotides in the sequence. Each nucleotide has an impact factor, 
+        /// which is an integer. Nucleotides of types A, C, G and T have impact factors of 1, 2, 3 and 4, respectively. 
+        /// You are going to answer several queries of the form: What is the minimal impact factor of nucleotides 
+        /// contained in a particular part of the given DNA sequence?
+        /// 
+        /// For example, given the string S = CAGCCTA and arrays P, Q such that:
+        /// P[0] = 2    Q[0] = 4
+        /// P[1] = 5    Q[1] = 5
+        /// P[2] = 0    Q[2] = 6 
+        /// the function should return the values[2, 4, 1]
+        /// 
+        /// Lesson 5 Prefix Sums, GenomicRangeQuery: https://app.codility.com/demo/results/trainingAWGV3Y-F63/
+        /// </summary>
+        /// <param name="S">a non-empty string S consisting of N characters. Which represent nucleotide</param>
+        /// <param name="P">non-empty array P</param>
+        /// <param name="Q">non-empty arrays Q</param>
+        /// <returns>an array consisting of M integers specifying the consecutive answers to all queries</returns>
+        public static int[] GenomicRangeQuery(string S, int[] P, int[] Q)
+        {
+            S = S.ToUpper();
+            var M = P.Length;
+            var minimalImpactFactors = new int[M];
+
+            for (int K = 0; K < M; K++)
+            {
+                //var sSubstring = (P[K] == Q[K]) ? S.Substring(P[K], 1) : S.Substring(P[K], Q[K] - 1);
+                var sSubstring = S.Substring(P[K], Q[K] - P[K] + 1);
+                var substringImpactFactors = new int[sSubstring.Length];
+
+                for (int nucleotidePosition = 0; nucleotidePosition < sSubstring.Length; nucleotidePosition++)
+                {
+                    var nucleotide = sSubstring[nucleotidePosition];
+                    switch (nucleotide)
+                    {
+                        case 'A':
+                            substringImpactFactors[nucleotidePosition] = 1;
+                            break;
+                        case 'C':
+                            substringImpactFactors[nucleotidePosition] = 2;
+                            break;
+                        case 'G':
+                            substringImpactFactors[nucleotidePosition] = 3;
+                            break;
+                        case 'T':
+                            substringImpactFactors[nucleotidePosition] = 4;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
+                minimalImpactFactors[K] = substringImpactFactors.Min();
+            }
+
+            return minimalImpactFactors;
+        }
 
         /// <summary>
         /// A Tic-Tac-Toe board is given as a string array board. 
