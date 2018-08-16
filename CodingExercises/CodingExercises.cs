@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-// https://leetcode.com/danielbowen/
+// https://leetcode.com/curedespair/
 namespace CodingExercises
 {
     public class CodingExercises
@@ -39,7 +39,6 @@ namespace CodingExercises
 
             for (int K = 0; K < M; K++)
             {
-                //var sSubstring = (P[K] == Q[K]) ? S.Substring(P[K], 1) : S.Substring(P[K], Q[K] - 1);
                 var sSubstring = S.Substring(P[K], Q[K] - P[K] + 1);
                 var substringImpactFactors = new int[sSubstring.Length];
 
